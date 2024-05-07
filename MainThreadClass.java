@@ -1,12 +1,10 @@
+package PACKAGE_NAME;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class j {
+public class MainThreadClass {
     private int value = 0 ;
 
 
@@ -37,7 +35,7 @@ public class j {
 
     }
 
-    public void incrementImpl(ExecutorService executorService,j j){
+    public void incrementImpl(ExecutorService executorService, MainThreadClass j){
         executorService.submit(()->{
             try{
                 j.increment();
@@ -51,7 +49,7 @@ public class j {
         });
     }
 
-    public void printImpl(ExecutorService executorService,j j) {
+    public void printImpl(ExecutorService executorService, MainThreadClass j) {
         executorService.submit(()->{
             try{
                 try {
@@ -68,7 +66,7 @@ public class j {
         });
     }
     public static void main(String[] args) {
-        j j = new j();
+        MainThreadClass j = new MainThreadClass();
         // thread producer .. this is the place where threads are being produced
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         long startTime = System.currentTimeMillis();
