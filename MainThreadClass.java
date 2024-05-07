@@ -11,31 +11,25 @@ public class MainThreadClass {
     // A BlockingQueue is a type of queue in Java that supports operations that wait for the queue to become non-empty when retrieving an element,
     // and wait for space to become available in the queue when storing an element.
     // In other words, it provides blocking operations for adding and removing elements from the queue.
-    private final BlockingQueue<Integer> queue = new LinkedBlockingQueue<>(1);
+
 
     //A ReentrantLock is a type of lock in Java that allows a thread to acquire the lock multiple times.
     // It provides the same basic behavior as the synchronized keyword for controlling access to shared resources but offers more flexibility and features.
     Lock lock = new ReentrantLock();
-    public void increment() {
+    public synchronized void increment() {
         // when lock is locked , only the thread which hits this will run and no other can run this simultaneously.
         // this block of code is available only after the thread hits unlock
         lock.lock();
         try {
             value += 1;
-            if(!queue.offer(value)){
-                System.out.println("waiting");
-                queue.put(value);
-            }
             System.out.println(Thread.currentThread().getName() + " incrementing :" +value);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         } finally {
             lock.unlock();
         }
 
     }
 
-    public void incrementImpl(ExecutorService executorService, MainThreadClass j){
+    public synchronized void incrementImpl(ExecutorService executorService, MainThreadClass j){
         executorService.submit(()->{
             try{
                 j.increment();
@@ -49,11 +43,11 @@ public class MainThreadClass {
         });
     }
 
-    public void printImpl(ExecutorService executorService, MainThreadClass j) {
+    public synchronized void printImpl(ExecutorService executorService, MainThreadClass j) {
         executorService.submit(()->{
             try{
                 try {
-                    System.out.println(Thread.currentThread().getName() +" finished: "+queue.take());
+                    System.out.println(Thread.currentThread().getName() +" finished: "+value);
                 }
                 catch(Exception e){
                     e.printStackTrace();
