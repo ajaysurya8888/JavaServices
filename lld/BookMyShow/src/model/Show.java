@@ -43,7 +43,7 @@ public class Show {
     }
 
     public void setshowEvent(Events showEvent) {
-        showEvent = showEvent;
+        this.showEvent = showEvent;
     }
 
 }

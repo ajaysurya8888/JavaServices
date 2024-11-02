@@ -35,4 +35,8 @@ public class ScreenController {
     public List<Show> getShowTime(String screenName) {
         return screenService.getScreenShow(screenName);
     }
+
+    public List<String> getShowTimeForEvent(String eventName, String screenName) {
+        return screenService.getShowTimeForEvent(eventName,screenName);
+    }
 }

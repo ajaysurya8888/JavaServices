@@ -54,7 +54,10 @@ locationController.addLocation("bengalore");
      String screenName = "lathangi";
         // get show timing for a screen
 
-        System.out.println("get showtiming for the screen+"+screenName);
+        System.out.println("get showtiming for the screen "+screenName);
         System.out.println(screenController.getShowTime(screenName).stream().map(name->name.getshowTime()).collect(Collectors.toList()));
+
+        System.out.println(String.format("get showtiming for the %s showing %s",screenName,eventName));
+        System.out.println(screenController.getShowTimeForEvent(eventName,screenName));
     }
 }

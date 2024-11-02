@@ -6,6 +6,7 @@ import model.Screens;
 import model.Show;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ScreenService {
     int screenId;
@@ -36,6 +37,13 @@ public class ScreenService {
         locationMap.putIfAbsent(location,new ArrayList<Screens>());
         locationMap.get(location).add(screen);
 
+    }
+
+    public List<String> getShowTimeForEvent(String eventsName,String screenName) {
+        return getScreenShow(screenName).stream()
+                .filter(name-> name.getshowEvent() != null && name.getshowEvent().getEventName().equals(eventsName)).
+                map(name->name.getshowTime())
+                .collect(Collectors.toList());
     }
 
     public void addEventToScreen(String screenName,Events events,List<String> showList){
