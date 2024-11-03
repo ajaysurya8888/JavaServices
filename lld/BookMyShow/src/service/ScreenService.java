@@ -28,8 +28,8 @@ public class ScreenService {
 
     public void addScreen(String screenName, String location, String address,List<String> showList) {
         List<Show> showLists = new ArrayList<Show>();
-        for(String s : showList) {
-            Show show = new Show(s,screenName);
+        for(String showTime : showList) {
+            Show show = new Show(showTime,screenName);
             showLists.add(show);
         }
         Screens screen = new Screens(screenId++,screenName,location,address,showLists);
